@@ -1,18 +1,34 @@
+'''
+BMI Calculator
+'''
+
 def main():
-    user_weight = get_weight()
-    if user_weight is None:
-        return
+    while True:
+        user_weight = get_weight()
+        if user_weight is None:
+            return
 
-    user_height = get_height()
-    if user_height is None:
-        return
+        user_height = get_height()
+        if user_height is None:
+            return
 
-    user_bmi = calculate_bmi(user_weight, user_height)
-    user_result = get_bmi_result(user_bmi)
+        user_bmi = calculate_bmi(user_weight, user_height)
+        user_result = get_bmi_result(user_bmi)
 
-    # print("Your BMI is", user_bmi, "! You are", user_result, ".")
-    print("Your BMI is ", user_bmi, "! You are ", user_result, ".", sep="")
-    # print(f"Your BMI is {user_bmi}! You are {user_result}.")
+        # print("Your BMI is", user_bmi, "! You are", user_result, ".")
+        print("Your BMI is ", user_bmi, "! You are ", user_result, ".", sep="")
+        # print(f"Your BMI is {user_bmi}! You are {user_result}.")
+
+        new_bmi = input("Would you like to calculate another BMI? (yes/no): ").lower().strip()
+
+        if new_bmi == 'yes':
+            continue
+        elif new_bmi == 'no':
+            print("Thank you!")
+            break
+        else:
+            print("Invalid input")
+            break
 
 def get_weight():
     weight_unit = input("Enter weight unit (kg/lb): ").lower().strip()

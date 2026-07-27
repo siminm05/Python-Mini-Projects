@@ -23,14 +23,18 @@ def get_weight():
         print('Invalid weight unit.')
         return None
 
-    else:
+    try:
         weight = float(input("Enter weight: "))
-        if weight > 0:
-            if weight_unit == "lb":
-                weight *= 0.453593
-        else:
-            print("Weight must be greater than 0.")
+        if weight <= 0:
+            print("Weight must be greater than 0")
             return None
+
+        if weight_unit == "lb":
+            weight *= 0.453593
+
+    except ValueError:
+        print("Weight must be a number")
+        return None
 
     return weight
 
@@ -40,17 +44,18 @@ def get_height():
     if height_unit not in ['m', 'cm', 'ft']:
         print('Invalid height unit.')
         return None
-    else:
+
+    try:
         if height_unit == 'm':
             height = float(input("Enter height: "))
         elif height_unit == 'cm':
             height = float(input("Enter height: "))
             height = height/100
         else:
-            feet = int(input("Feet: "))
+            feet = int(input("Enter Feet: "))
             if feet >= 0:
-                inches = int(input("Inches (0 to 11): "))
-                if (inches>=0) and (inches <=11):
+                inches = int(input("Enter Inches (0 to 11): "))
+                if 0 <= inches <= 11:
                     total_inches = (feet * 12) + inches
                     height = total_inches * 0.0254
                 else:
@@ -60,9 +65,14 @@ def get_height():
                 print("Invalid Feet input")
                 return None
 
+    except ValueError:
+        print("Height must be a number")
+        return None
+
     if height > 0:
         return height
     else:
+        print("Height must be greater than 0")
         return None
 
 def calculate_bmi(weight, height):

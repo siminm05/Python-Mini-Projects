@@ -1,38 +1,35 @@
 tasks = []
 
 def menu(user_choice):
-    if user_choice == 1:
-        user_task = input("Enter Task: ")
-        tasks.append({
-            "task": user_task,
-            "completed": False})
+    while True:
+        if user_choice == 1:
+            user_task = input("Enter Task: ")
+            if user_task.strip() != "":
+                tasks.append({
+                    "task": user_task,
+                    "completed": False})
+                break
+            else:
+                print("Task cant be empty")
+                continue
 
-    elif user_choice == 2:
         if len(tasks) == 0:
-            print("No tasks to do")
+            print("No tasks available. Add new task.")
         else:
-            view_tasks()
-
-    elif user_choice == 3:
-        if len(tasks) == 0:
-            print("No tasks to be deleted")
-        else:
-            delete_task()
-
-    elif user_choice == 4:
-        if len(tasks) == 0:
-            print("No tasks to be deleted")
-        else:
-            complete_task()
-
-    elif user_choice==5:
-        if len(tasks) == 0:
-            print("No tasks to be deleted")
-        else:
-            edit_task()
-
-    else:
-        print("Enter number")
+            if user_choice == 2:
+                view_tasks()
+                return
+            elif user_choice == 3:
+                delete_task()
+                return
+            elif user_choice == 4:
+                complete_task()
+                return
+            elif user_choice == 5:
+                edit_task()
+                return
+            else:
+                print("Enter number")
 
 def view_tasks():
     i = 1
@@ -81,14 +78,17 @@ def complete_task():
 def edit_task():
     while True:
         try:
-            print("Which task would u like to 'edit'?")
+            print("\nWhich task would you like to 'edit'?")
             view_tasks()
             edit_index = int(input("Enter the index next to the task: "))
             if 0 < edit_index <= len(tasks):
                 new_user_task = input("Enter the task: ")
-                print("Task '", tasks[edit_index - 1]["task"], "' has been edited", sep="")
-                tasks[edit_index-1]["task"] = new_user_task
-                return
+                if new_user_task.strip() != "":
+                    print("Task '", tasks[edit_index - 1]["task"], "' has been edited\n", sep="")
+                    tasks[edit_index-1]["task"] = new_user_task
+                    break
+                else:
+                    print("Task cant be empty.")
             else:
                 print("Enter index number")
         except ValueError:
@@ -107,6 +107,5 @@ def main():
 
         except ValueError:
             print("Invalid value type. Enter number")
-
 
 main()

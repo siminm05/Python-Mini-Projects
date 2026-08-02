@@ -25,6 +25,12 @@ def menu(user_choice):
         else:
             complete_task()
 
+    elif user_choice==5:
+        if len(tasks) == 0:
+            print("No tasks to be deleted")
+        else:
+            edit_task()
+
     else:
         print("Enter number")
 
@@ -62,7 +68,7 @@ def complete_task():
             if 0 < complete_index <= len(tasks):
                 # if tasks[complete_index - 1]["completed"] == False:
                 if not tasks[complete_index - 1]["completed"]:
-                    print("Task' ", tasks[complete_index-1]["task"], "' has been marked completed", sep="")
+                    print("Task '", tasks[complete_index-1]["task"], "' has been marked completed", sep="")
                     tasks[complete_index-1]["completed"] = True
                     return
                 else:
@@ -72,14 +78,28 @@ def complete_task():
         except ValueError:
             print("\nInvalid input type. Enter task index\n")
 
-
+def edit_task():
+    while True:
+        try:
+            print("Which task would u like to 'edit'?")
+            view_tasks()
+            edit_index = int(input("Enter the index next to the task: "))
+            if 0 < edit_index <= len(tasks):
+                new_user_task = input("Enter the task: ")
+                print("Task '", tasks[edit_index - 1]["task"], "' has been edited", sep="")
+                tasks[edit_index-1]["task"] = new_user_task
+                return
+            else:
+                print("Enter index number")
+        except ValueError:
+            print("Invalid input type. Enter number")
 def main():
     while True:
         try:
-            print("\n1. Add Task\n2. View Tasks\n3. Delete Task\n4. Complete Task\n5. Exit")
+            print("\n1. Add\n2. View\n3. Delete\n4. Mark Complete\n5. Edit\n6. Exit")
             user_choice = int(input("Choose an option: "))
             print("")
-            if user_choice == 5:
+            if user_choice == 6:
                 print("Thank you")
                 break
             else:

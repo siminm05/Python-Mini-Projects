@@ -1,11 +1,17 @@
+import string
+
 contact_book =[]
 
 def add():
     name = input("\nEnter Name: ")
     phone_num = input("Enter Phone Number: ")
     if len(phone_num) == 10:
-        contact_book.append({"name": name,
-                         "phone_num": phone_num})
+        if phone_num.isdigit():
+            contact_book.append({"name": name,
+                            "phone_num": phone_num})
+        else:
+            print("Please enter number [0-9]")
+            return
     else:
         print("Invalid Number of digits")
         return
@@ -68,12 +74,25 @@ def edit():
         print("Invalid Input type")
 
 
+def search():
+    if len(contact_book)==0:
+        print("No contact to find")
+    else:
+        found = False
+        search = input("Enter name (Exact match not require): ").lower().strip()
+        print("Found: ")
+        for contact in contact_book:
+            if search in contact["name"].lower():
+                print(contact["name"], " - ", contact["phone_num"])
+                found = True
+        if not found:
+            print("No contact")
 
 
 def main():
     while True:
         try:
-            print("\n1. Add\n2. View\n3. Delete\n4. Edit\n5. Exit")
+            print("\n1. Add\n2. View\n3. Delete\n4. Edit\n5. Search\n6. Exit")
             user_choice = int(input("Enter your choice: "))
             if user_choice==1:
                 add()
@@ -83,7 +102,9 @@ def main():
                 delete()
             elif user_choice==4:
                 edit()
-            elif user_choice==5:
+            elif user_choice == 5:
+                search()
+            elif user_choice==6:
                 print("Thank you")
                 break
             else:

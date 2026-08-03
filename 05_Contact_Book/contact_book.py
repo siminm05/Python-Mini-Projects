@@ -20,7 +20,7 @@ def view():
             i+=1
 
 def delete():
-    try: 
+    try:
         if len(contact_book)==0:
             print("No contacts to delete. Add contact")
             return
@@ -37,11 +37,43 @@ def delete():
     except ValueError:
         print("Invalid Input type")
 
+def edit():
+    try:
+        if len(contact_book) == 0:
+            print("No contact to edit")
+        else:
+            print("\nWhat would you like to edit? \n1. Name\n2. Phone Number")
+            edit_choice = int(input("Enter 1 or 2: "))
+            if edit_choice in [1,2]:
+                view()
+                print("Which contact would you like to edit?")
+                edit_index = int(input("Enter the index number next to the contact: "))
+                if 0 < edit_index <= len(contact_book):
+                    if edit_choice == 1:
+                        new_name = input("Enter new name: ")
+                        contact_book[edit_index-1]["name"] = new_name
+                        print("Name has been changed")
+                    else:
+                        new_number = input("Enter new number: ")
+                        if len(new_number) == 10:
+                            contact_book[edit_index-1]["phone_num"] = new_number
+                            print("Phone Number has been changed")
+                        else:
+                            print("Phone Number should be of 10 digits only")
+                else:
+                    print("Wrong index number")
+            else:
+                print("Please select number 1 or 2")
+    except ValueError:
+        print("Invalid Input type")
+
+
+
 
 def main():
     while True:
         try:
-            print("\n1. Add\n2. View\n3. Delete\n4. Exit")
+            print("\n1. Add\n2. View\n3. Delete\n4. Edit\n5. Exit")
             user_choice = int(input("Enter your choice: "))
             if user_choice==1:
                 add()
@@ -50,6 +82,8 @@ def main():
             elif user_choice==3:
                 delete()
             elif user_choice==4:
+                edit()
+            elif user_choice==5:
                 print("Thank you")
                 break
             else:

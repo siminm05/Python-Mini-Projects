@@ -2,7 +2,7 @@ contact_book = []
 
 
 def add():
-    name = input("\nEnter Name: ").strip()
+    name = input("Enter Name: ").strip()
     if len(name) != 0:
         phone_num = input("Enter Phone Number: ")
         if len(phone_num) == 10:
@@ -15,7 +15,7 @@ def add():
         else:
             print("Invalid Number of digits. Enter 10 digits only")
             return
-        print("Contact have been added")
+        print("Contact has been added")
     else:
         print("Contact Name cant be empty or spaces")
 
@@ -25,6 +25,7 @@ def view():
     if len(contact_book) == 0:
         print("No contacts to view. Add contact")
     else:
+        print("\nCurrent Contacts: ")
         for contact in contact_book:
             print(i, ". ", contact["name"], " - ", contact["phone_num"], sep="")
             i += 1

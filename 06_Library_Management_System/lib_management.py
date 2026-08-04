@@ -26,8 +26,19 @@ def view():
         return
     i = 1
     for book in books:
-        print(i, ". ", book["title"],"\nAuthor : ", book["author"], "\nGenre : ", book["genre"], "\nAvail : ", book["available"],sep="")
-        i += 1
+        if book["available"] == True:
+            book["available"] = "Yes"
+            print(i, ". ", book["title"], "\nAuthor : ", book["author"], "\nGenre : ", book["genre"], "\nAvailable : ",
+                  book["available"], sep="")
+            i += 1
+            book["available"] = True
+        else:
+            book["available"] = "No"
+            print(i, ". ", book["title"], "\nAuthor : ", book["author"], "\nGenre : ", book["genre"], "\nAvailable : ",
+                  book["available"], sep="")
+            i += 1
+            book["available"] = False
+
 
 
 def borrow():
@@ -85,12 +96,48 @@ def return_book():
     if found == False:
         print("No book was found with the name:", return_name)
 
-
+def search():
+    if len(books) == 0:
+        print("No books available for search")
+        return
+    print("Would you like to search by: ")
+    search = False
+    i = 1
+    search_choice = int(input("1. Title\n2. Author\n3. Genre\nEnter option number:  "))
+    if search_choice in [1,2,3]:
+        if search_choice == 1:
+            title_search = input("Enter title: ").lower().strip()
+            for book in books:
+                if title_search in book["title"].lower().strip():
+                    print(i, ". ", book["title"], "\nAuthor : ", book["author"], "\nGenre : ", book["genre"],
+                          "\nAvailable : ", book["available"], sep="")
+                    i += 1
+                    search = True
+        elif search_choice == 2:
+            author_search = input("Enter name of the author: ").lower().strip()
+            for book in books:
+                if author_search in book["author"].lower().strip():
+                    print(i, ". ", book["title"], "\nAuthor : ", book["author"], "\nGenre : ", book["genre"],
+                          "\nAvailable : ", book["available"], sep="")
+                    i += 1
+                    search = True
+        else:
+            genre_search = input("Enter genre: ").lower().strip()
+            for book in books:
+                if genre_search in book["genre"].lower().strip():
+                    print(i, ". ", book["title"], "\nAuthor : ", book["author"], "\nGenre : ", book["genre"],
+                          "\nAvailable : ", book["available"], sep="")
+                    i += 1
+                    search = True
+        if search == False:
+            print("No book/s found")
+    else:
+        print("Please enter number [1-3]")
 def main():
     while True:
         try:
             print("\n---Library Management System---")
-            print("1. Add\n2. View\n3. Borrow\n4. Return\n5. Exit\n")
+            print("1. Add\n2. View\n3. Borrow\n4. Return\n5. Search\n6. Exit\n")
             user_choice = int(input("Enter your choice: "))
 
             if user_choice == 1:
@@ -102,6 +149,8 @@ def main():
             elif user_choice == 4:
                 return_book()
             elif user_choice == 5:
+                search()
+            elif user_choice == 6:
                 print("Thank you for using Library Management System")
                 break
             else:

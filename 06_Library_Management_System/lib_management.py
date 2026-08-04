@@ -52,16 +52,45 @@ def borrow():
     for book in books:
         if book["title"].lower().strip() == borrow_name:
             book["available"] = False
-            print("Book is now yours")
+            print("Book is now marked borrowed")
             found = True
     if found == False:
         print("No books found with the name:", borrow_name)
+
+def return_book():
+    if len(books) == 0:
+        print("No Books to return")
+        return
+    count = 0
+    for book in books:
+        if book["available"] == False:
+            count+=1
+    print("Books to be returned:", count)
+    if count == 0:
+        print("No books need to be returned")
+        return
+    i = 1
+    for book in books:
+        if book["available"] == False:
+            print(i, ". ", book["title"], sep="")
+            i+=1
+    found = False
+    return_name = input("Enter the name of the book to be returned: ").lower().strip()
+    for book in books:
+        if book["title"].lower().strip() == return_name:
+            book["available"] = True
+            print("Book has been marked as returned")
+            found = True
+            return
+    if found == False:
+        print("No book was found with the name:", return_name)
+
 
 def main():
     while True:
         try:
             print("\n---Library Management System---")
-            print("1. Add\n2. View\n3. Borrow\n4. Exit\n")
+            print("1. Add\n2. View\n3. Borrow\n4. Return\n5. Exit\n")
             user_choice = int(input("Enter your choice: "))
 
             if user_choice == 1:
@@ -71,6 +100,8 @@ def main():
             elif user_choice == 3:
                 borrow()
             elif user_choice == 4:
+                return_book()
+            elif user_choice == 5:
                 print("Thank you for using Library Management System")
                 break
             else:

@@ -39,27 +39,18 @@ def soln(students):
         print("Name:", i["name"], "Avg:", i["avg"])
 
 
+    overall_sum = 0
     highest, lowest = 0, 100
+    highest_indi, lowest_indi = 0, 100
     for i in students:
         if i["avg"] > highest:
             highest = i["avg"]
         elif i["avg"] < lowest:
             lowest = i["avg"]
 
-    for i in students:
-        if i["avg"] == highest:
-            print("\nHighest Avg:", i["name"])
-        elif i["avg"] == lowest:
-            print("Lowest Avg:", i["name"])
-
-    overall_sum = 0
-    for i in students:
         overall_sum += i["avg"]
-    overall_avg = overall_sum/len(students)
-    print("\nOverall avg:", overall_avg, "\n")
+        overall_avg = overall_sum / len(students)
 
-    highest_indi, lowest_indi = 0, 100
-    for i in students:
         for j in i["marks"]:
             if j > highest_indi:
                 highest_indi = j
@@ -69,25 +60,29 @@ def soln(students):
         i["lowest"] = lowest_indi
 
     for i in students:
+        if i["avg"] == highest:
+            print("\nHighest Avg:", i["name"])
+        elif i["avg"] == lowest:
+            print("Lowest Avg:", i["name"])
+
+    print("\nOverall avg:", overall_avg, "\n")
+
+    for i in students:
         print("Name:",i["name"], "Highest Score:",i["highest"], "Lowest Score:",i["lowest"])
 
+    counter = 0
     less_overall_avg = []
+    details = {}
     for i in students:
         if i["avg"] < overall_avg:
             less_overall_avg.append(i["name"])
-    print("\nStudents below the overall avg: ", less_overall_avg)
-
-    counter = 0
-    for i in students:
         if i["age"] > 20:
             counter += 1
-    print("\nStudents above the age 20: ", counter)
-
-    details = {}
-    for i in students:
         names = i["name"]
         avg = i["avg"]
         details[names] = avg
+    print("\nStudents below the overall avg: ", less_overall_avg)
+    print("\nStudents above the age 20: ", counter)
     print("\nDict with  names and avg:", details)
 
     return
